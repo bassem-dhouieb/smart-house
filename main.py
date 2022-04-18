@@ -66,7 +66,7 @@ def add_new_post():
             body=form.body.data,
             img_url=form.img_url.data,
             author=form.author.data,
-            date=date.today().strftime("%B %d, %Y")
+            date=date.today().strftime("%H:%M:%S %B %d, %Y")
         )
         db.session.add(new_post)
         db.session.commit()
@@ -83,7 +83,7 @@ def edit_post(post_id):
     edit_form.body.data = post.body
     edit_form.img_url.data = post.img_url
     edit_form.author.data = post.author
-    edit_date = date.today().strftime("%B %d, %Y")
+    edit_date = date.today().strftime("%H:%M:%S %B %d, %Y")
     return render_template("make-post.html", form=edit_form, is_edit=True)
 
 
