@@ -39,7 +39,7 @@ class CreatePostForm(FlaskForm):
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
-
+db.create_all()
 
 
 ##RENDER HOME PAGE USING DB
