@@ -6,6 +6,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 import os
+from flask import request
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
@@ -13,7 +14,7 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  'sqlite:///posts.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", 'sqlite:///posts.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 from datetime import datetime
@@ -39,6 +40,7 @@ class CreatePostForm(FlaskForm):
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
+
 db.create_all()
 
 
@@ -59,21 +61,20 @@ def show_post(index):
 @app.route("/new-post", methods=["GET", "POST"])
 def add_new_post():
     form = CreatePostForm()
-    if form.validate_on_submit():
-        new_post = BlogPost(
-            title=form.title.data,
-            subtitle=form.subtitle.data,
-            body=form.body.data,
-            img_url=form.img_url.data,
-            author=form.author.data,
-            date=datetime.now().strftime(" %H:%M:%S , %m/%d/%Y")
 
-        )
+    new_post = BlogPost(
+        title=request.args.get('title'),
+        subtitle=request.args.get('title'),
+        body=request.args.get('title'),
+        img_url=request.args.get('img'),
+        author=request.args.get('title'),
+        date=datetime.now().strftime(" %H:%M:%S , %m/%d/%Y")
 
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect(url_for('get_all_posts'))
-    return render_template("make-post.html", form=form)
+    )
+
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(url_for('get_all_posts'))
 
 
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
@@ -108,4 +109,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True,port=8000)
+    app.run(debug=True, port=8000)
