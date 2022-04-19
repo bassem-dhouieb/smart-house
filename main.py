@@ -63,7 +63,7 @@ def add_new_post():
     form = CreatePostForm()
 
     new_post = BlogPost(
-        title=request.args.get('title'),
+        title=request.args.get('title')+" visits you at "+datetime.now().strftime(" %H:%M:%S , %m/%d/%Y"),
         subtitle=request.args.get('title'),
         body=request.args.get('title'),
         img_url=request.args.get('img'),
