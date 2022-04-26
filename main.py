@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -7,6 +8,7 @@ from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 import os
 from flask import request
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
@@ -103,9 +105,51 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/control")
 def contact():
-    return render_template("contact.html")
+    return render_template("control.html")
+
+@app.route("/door1")
+def door1():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["port1"] = not result["port1"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
+
+@app.route("/door2")
+def door2():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["port2"] = not result["port2"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
+
+@app.route("/door3")
+def door3():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["port3"] = not result["port3"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
+
+@app.route("/light")
+def light():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["lumiere"] = not result["lumiere"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
+
+@app.route("/air-conditioner")
+def conditioner():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["climatiseur"] = not result["climatiseur"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
+
+@app.route("/heater")
+def heater():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    result["chauffage"] = not result["chauffage"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
+    return render_template("control.html")
 
 
 if __name__ == "__main__":

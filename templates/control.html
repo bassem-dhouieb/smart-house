@@ -1,0 +1,32 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1623044584805-4b23ac3ad278?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Control Me Father</h1>
+            <span class="subheading">Control lights, open doors and warm your house.</span>
+
+               <a href="/door1" class="btn btn-dark m-1  btn-md-block" id="openDoor1Button">Door 1</a>
+          <a href="/door2" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor2Button">Door 2</a>
+          <a href="door3" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor3Button">Door 3</a>
+
+                <a href="air-conditioner" class="btn btn-dark m-1 btn-md-block" id="turnOnAirConditionerButton">Air Conditioner</a>
+          <a href="heater" class="btn btn-dark m-1 btn-md-block" id="turnOnHeaterButton">Heater</a>
+          <a href="light" class="btn btn-dark m-1 btn-md-block" id="turnOnLightButton">Light </a>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+  <hr>
+
+  {% include "footer.html" %}
