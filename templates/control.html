@@ -2,21 +2,53 @@
 
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1623044584805-4b23ac3ad278?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>Control Me Father</h1>
-            <span class="subheading">Control lights, open doors and warm your house.</span>
+    <div class="overlay">
+            <p> </p>
+             <p class="btn btn-outline-danger mt-5 mr-5 float-right text-center">temperature : {{ temperature }} C° <br> humidity : {{ humidity }} %</p>
+    </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-8 col-md-10 mx-auto">
 
-               <a href="/door1" class="btn btn-dark m-1  btn-md-block" id="openDoor1Button">Door 1</a>
-          <a href="/door2" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor2Button">Door 2</a>
-          <a href="door3" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor3Button">Door 3</a>
+                  <div class="page-heading">
 
+                      <h1>Control Me Father</h1>
+            <span class="subheading mb-4">Control lights, open doors and warm your house.</span>
+                {% if  isopen1 %}
+                    <a href="/door1" class="btn btn-danger m-1  btn-md-block" id="openDoor1Button">Door 1</a>
+                {% else %}
+                <a href="/door1" class="btn btn-dark m-1  btn-md-block" id="openDoor1Button">Door 1</a>
+                {% endif %}
+
+                {% if  isopen2 %}
+                <a href="/door2" type="button" class="btn btn-danger m-1 btn-md-block" id="openDoor2Button">Door 2</a>
+                {% else %}
+                <a href="/door2" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor2Button">Door 2</a>
+                {% endif %}
+
+                {% if  isopen3 %}
+                    <a href="/door3" type="button" class="btn btn-danger m-1 btn-md-block" id="openDoor3Button">Door 3</a>
+                {% else %}
+                    <a href="/door3" type="button" class="btn btn-dark m-1 btn-md-block" id="openDoor3Button">Door 3</a>
+                {% endif %}
+
+                {% if  isopenConditioner %}
+                <a href="air-conditioner" class="btn btn-danger m-1 btn-md-block" id="turnOnAirConditionerButton">Air Conditioner</a>
+                {% else %}
                 <a href="air-conditioner" class="btn btn-dark m-1 btn-md-block" id="turnOnAirConditionerButton">Air Conditioner</a>
-          <a href="heater" class="btn btn-dark m-1 btn-md-block" id="turnOnHeaterButton">Heater</a>
-          <a href="light" class="btn btn-dark m-1 btn-md-block" id="turnOnLightButton">Light </a>
+                {% endif %}
+
+                {% if  isopenHeater %}
+                <a href="heater" class="btn btn-danger m-1 btn-md-block" id="turnOnHeaterButton">Heater</a>
+                {% else %}
+                <a href="heater" class="btn btn-dark m-1 btn-md-block" id="turnOnHeaterButton">Heater</a>
+                {% endif %}
+
+                {% if  isopenLight %}
+                <a href="light" class="btn btn-danger m-1 btn-md-block" id="turnOnLightButton">Light </a>
+                {% else %}
+                <a href="light" class="btn btn-dark m-1 btn-md-block" id="turnOnLightButton">Light </a>
+                {% endif %}
 
 
           </div>

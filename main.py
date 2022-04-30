@@ -50,7 +50,10 @@ db.create_all()
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    return render_template("index.html", all_posts=posts)
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    return render_template("index.html", all_posts=posts,temperature=temperature,humidity=humidity)
 
 
 ##RENDER POST USING DB
@@ -65,7 +68,7 @@ def add_new_post():
     form = CreatePostForm()
 
     new_post = BlogPost(
-        title=request.args.get('title')+" visits you at "+datetime.now().strftime(" %H:%M:%S , %m/%d/%Y"),
+        title=request.args.get('title') + " visits you at " + datetime.now().strftime(" %H:%M:%S , %m/%d/%Y"),
         subtitle=request.args.get('title'),
         body=request.args.get('title'),
         img_url=request.args.get('img'),
@@ -106,50 +109,122 @@ def about():
 
 
 @app.route("/control")
-def contact():
-    return render_template("control.html")
+def control():
+    result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,isopenConditioner=isopenConditioner,isopenHeater=isopenHeater,isopenLight=isopenLight,temperature=temperature,humidity=humidity)
+
+
 
 @app.route("/door1")
 def door1():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["port1"] = not result["port1"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,isopenConditioner=isopenConditioner,isopenHeater=isopenHeater,isopenLight=isopenLight,temperature=temperature,humidity=humidity)
+
+
 
 @app.route("/door2")
 def door2():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["port2"] = not result["port2"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,
+                           isopenConditioner=isopenConditioner, isopenHeater=isopenHeater, isopenLight=isopenLight,
+                           temperature=temperature, humidity=humidity)
+
 
 @app.route("/door3")
 def door3():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["port3"] = not result["port3"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,isopenConditioner=isopenConditioner,isopenHeater=isopenHeater,isopenLight=isopenLight,temperature=temperature,humidity=humidity)
+
 
 @app.route("/light")
 def light():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["lumiere"] = not result["lumiere"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,
+                           isopenConditioner=isopenConditioner, isopenHeater=isopenHeater, isopenLight=isopenLight,
+                           temperature=temperature, humidity=humidity)
+
 
 @app.route("/air-conditioner")
 def conditioner():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["climatiseur"] = not result["climatiseur"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,isopenConditioner=isopenConditioner,isopenHeater=isopenHeater,isopenLight=isopenLight,temperature=temperature,humidity=humidity)
+
+
 
 @app.route("/heater")
 def heater():
     result = requests.get("https://apii-sys.herokuapp.com/api").json()[0]
     result["chauffage"] = not result["chauffage"]
-    requests.patch("https://apii-sys.herokuapp.com/api/action",json=result)
-    return render_template("control.html")
+    isopen1 = result["port1"]
+    isopen2 = result["port2"]
+    isopen3 = result["port3"]
+    isopenConditioner = result["climatiseur"]
+    isopenHeater = result["chauffage"]
+    isopenLight = result["lumiere"]
+    temperature = result["temperature"]
+    humidity = result["humidité"]
+    requests.patch("https://apii-sys.herokuapp.com/api/action", json=result)
+    return render_template("control.html", isopen1=isopen1, isopen2=isopen2, isopen3=isopen3,
+                           isopenConditioner=isopenConditioner, isopenHeater=isopenHeater, isopenLight=isopenLight,
+                           temperature=temperature, humidity=humidity)
 
 
 if __name__ == "__main__":
